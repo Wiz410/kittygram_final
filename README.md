@@ -1,26 +1,73 @@
-#  Как работать с репозиторием финального задания
+# Kittygram_final
 
-## Что нужно сделать
+**Kittygram** социальная сеть для обмена фотографиями любимых питомцев. Учебный проект 17 спринта в **yandex practicum**.
 
-Настроить запуск проекта Kittygram в контейнерах и CI/CD с помощью GitHub Actions
+**В нем вы можете:**
 
-## Как проверить работу с помощью автотестов
+- Зарегистрироваться, авторизироваться.
+- Добавить нового котика на сайт:
+    - Выбрав фотографию.
+    - Имя кота.
+    - Год рождения.
+    - Выбрать 1 из 12 цветов кота.
+    - Выбрать или создать новые достижения.
+- Редактировать и удалять своего котика.
+- Просматривать котиков других пользователей.
 
-В корне репозитория создайте файл tests.yml со следующим содержимым:
-```yaml
-repo_owner: ваш_логин_на_гитхабе
-kittygram_domain: полная ссылка (https://доменное_имя) на ваш проект Kittygram
-taski_domain: полная ссылка (https://доменное_имя) на ваш проект Taski
-dockerhub_username: ваш_логин_на_докерхабе
+## Требование
+
+- [Docker 4.25.0](https://www.docker.com/)
+- [Python 3.10.12](https://docs.python.org/release/3.10.12/)
+- [Node js 18.17.1](https://nodejs.org/en/blog/release/v18.17.1)
+- [Django 3.2.3](https://www.djangoproject.com/)
+- [Django REST Framework 3.12.4](https://www.django-rest-framework.org/)
+- [React 18.2.0](https://legacy.reactjs.org/docs/getting-started.html)
+- [Gunicorn 20.1.0](https://docs.gunicorn.org/en/20.1.0/)
+- [Nginx 1.18.0](https://nginx.org/en/docs/)
+
+### Как запустить проект
+
+Клонируйте репозиторий и перейдите в директорию проекта:
+```bash
+git clone git@github.com:Wiz410/kittygram_final.git
+cd kittigram_final/
 ```
 
-Скопируйте содержимое файла `.github/workflows/main.yml` в файл `kittygram_workflow.yml` в корневой директории проекта.
+Создайте файл `.env` и заполните его:
+```bash
+touch .env
+nano .env
+```
 
-Для локального запуска тестов создайте виртуальное окружение, установите в него зависимости из backend/requirements.txt и запустите в корневой директории проекта `pytest`.
+```env
+POSTGRES_USER=django_user
+POSTGRES_PASSWORD=django_db_password
+POSTGRES_DB=django_db
+DB_HOST=db
+DB_PORT=5432
+DJANGO_SECRET_KEY=secret_key
+DJANGO_DEBUG=False
+DJANGO_ALLOWED_HOSTS=127.0.0.1 localhost
+DJANGO_TIME_ZONE=UTC
+```
+Сохраните `ctrl + s` выйдите из него `ctrl + x`.
 
-## Чек-лист для проверки перед отправкой задания
+Запустите Docker Compose:
+```bash
+docker compose up
+```
 
-- Проект Taski доступен по доменному имени, указанному в `tests.yml`.
-- Проект Kittygram доступен по доменному имени, указанному в `tests.yml`.
-- Пуш в ветку main запускает тестирование и деплой Kittygram, а после успешного деплоя вам приходит сообщение в телеграм.
-- В корне проекта есть файл `kittygram_workflow.yml`.
+В отдельном терминале перейдите в корень проекта и выполните: миграции, сбор статики и копирования:
+```bash
+cd путь_до_проекта/kittygram_final/
+docker compose exec backend python manage.py migrate
+docker compose exec backend python manage.py collectstatic
+docker compose exec backend cp -r /app/collected_static/. /static/static/
+```
+
+Проект будет доступен по адресу: http://127.0.0.1:9000/
+
+#### Авторы проекта
+
+- [Yandex Practicum](https://github.com/yandex-praktikum)
+- [Danila Polunin](https://github.com/Wiz410)
