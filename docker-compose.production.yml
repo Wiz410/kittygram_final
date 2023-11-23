@@ -21,7 +21,7 @@ services:
       - db
   frontend:
     env_file: .env
-    image: wiz410/kittygram_fronten
+    image: wiz410/kittygram_frontend
     command: cp -r /app/build/. /static/
     volumes:
       - static:/static
