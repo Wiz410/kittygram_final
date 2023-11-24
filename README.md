@@ -57,14 +57,6 @@ DJANGO_TIME_ZONE=UTC
 docker compose up
 ```
 
-В отдельном терминале перейдите в корень проекта и выполните: миграции, сбор статики и копирования:
-```bash
-cd путь_до_проекта/kittygram_final/
-docker compose exec backend python manage.py migrate
-docker compose exec backend python manage.py collectstatic
-docker compose exec backend cp -r /app/collected_static/. /static/static/
-```
-
 Проект будет доступен по адресу: http://127.0.0.1:9000/
 
 #### Авторы проекта
