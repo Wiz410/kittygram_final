@@ -133,6 +133,7 @@ dmypy.json
 .DS_Store
 .AppleDouble
 .LSOverride
+.bash_profile
 
 *.sublime-project
 *.sublime-workspace
@@ -150,4 +151,4 @@ media/
 
 # Others
 node_modules
-.bash_profile
+
