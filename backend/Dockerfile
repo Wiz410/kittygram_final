@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt --no-cache-dir
 
 COPY . .
 
-ENTRYPOINT ["bash", "./start_migrate_collectstatic.sh"]
+CMD ["bash", "./start_migrate_collectstatic.sh"]
